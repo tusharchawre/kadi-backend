@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken"
 import 'dotenv/config'
 import { userMiddlware } from "./middleware"
 import { linkGen } from "./linkGen"
+import cors from "cors";
 
 require('dotenv').config()
 
@@ -16,7 +17,9 @@ const client = new PrismaClient()
 
 app.use(express.json());
 
-app.post("/api/v1/user/register", async (req, res)=>{
+app.use(cors());
+
+app.post("/api/v1/register", async (req, res)=>{
     const username = req.body.username
     const password = req.body.password
     const email =  req.body.email
@@ -36,7 +39,7 @@ app.post("/api/v1/user/register", async (req, res)=>{
 
 })
 
-app.post("/api/v1/user/login",  async (req,res)=>{
+app.post("/api/v1/login",  async (req,res)=>{
     const username = req.body.username
     const password = req.body.password
 
@@ -72,6 +75,9 @@ app.post("/api/v1/user/login",  async (req,res)=>{
         
     }
 )
+
+
+
 
 app.post("/api/v1/content", userMiddlware, async (req, res) => {
     const { link, type, title } = req.body;

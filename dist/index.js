@@ -19,11 +19,13 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 require("dotenv/config");
 const middleware_1 = require("./middleware");
 const linkGen_1 = require("./linkGen");
+const cors_1 = __importDefault(require("cors"));
 require('dotenv').config();
 const app = (0, express_1.default)();
 const client = new client_1.PrismaClient();
 app.use(express_1.default.json());
-app.post("/api/v1/user/register", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.use((0, cors_1.default)());
+app.post("/api/v1/register", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
@@ -39,7 +41,7 @@ app.post("/api/v1/user/register", (req, res) => __awaiter(void 0, void 0, void 0
         message: "User Created Succesfully"
     });
 }));
-app.post("/api/v1/user/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.post("/api/v1/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const username = req.body.username;
     const password = req.body.password;
     const user = yield client.user.findFirst({

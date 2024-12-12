@@ -4,7 +4,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 
 export const userMiddlware = (req: Request, res:Response , next: NextFunction) => {
 
-    const header = req.headers["authorization"]
+    const header = req.headers["Authorization"]
 
     const decoded = jwt.verify(header as string, process.env.JWT_password as string )
 
